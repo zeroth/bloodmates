@@ -1,9 +1,18 @@
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
-
+from django.views.decorators.csrf import csrf_exempt
 import json
+import urllib2 as urllib
 
 _from = "contact@nuvenote.com"
+def url_data_to_dic(urldata):
+    plain_txt = urllib.unquote(urldata)
+    plain_list = plain_txt.split("&")
+    r = {}
+    for i in plain_list:
+        t = i.split("=")
+        r[t[0].strip()] = t[1].strip()
+    return r
 
 def render_email(context, template_name):
     template = loader.get_template(template_name)
@@ -28,12 +37,17 @@ def transactional_email(to, subject, context, email_type):
     email.send()
     #send_mail(subject=subject, message="test", from_email=_from, recipient_list=to, fail_silently=False, html_message=content) 
 
+@csrf_exempt
 def email(request):
     if request.method == "POST":
+        #data = url_data_to_dic(request.body)
+        #return HttpResponse(data)
         data = json.loads(request.body)
         _to = data['to']
-        _from = date['from'] 
-        _message = data['message']
+        return HttpResponse(_to)
+        _from = request.POST.get('from')
+        _from = _from+"@facebook.com"
+        _message = request.POST.get('message')
         send_mail("Help your friend", _message, _from, _to)
         return HttpResponse()
     return HttpResponse("Hi! Please go to <a href='http://bloodmates.co'>http://bloodmates.co</a>")

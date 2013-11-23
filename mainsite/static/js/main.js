@@ -76,8 +76,18 @@ function show_friends(){
 			    from:_from,
 			    message:"Hi from Paris!. just a test for an app so please ignore.",
 			};
-			$.post("/emails/", JSON.stringify(to_send),function(r){
+			/*$.post("/emails/", JSON.stringify(to_send),function(r){
 			    alert(r.status);
+			});*/
+			$.ajax({
+			    url:"/emails/",
+			    type:"POST",
+			    data:to_send,
+			    contentType:"application/json; charset=utf-8",
+			    dataType:"json",
+			    success: function(r){
+				alert(r);
+			    }
 			});
 		    }
 		});
