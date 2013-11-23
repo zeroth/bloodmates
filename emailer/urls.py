@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^', include('mainsite.urls')),
-    url(r'^emails', include('mail.urls')),
+    url(r'^emails/', include('mail.urls')),
     # Examples:
     # url(r'^$', 'emailer.views.home', name='home'),
     # url(r'^emailer/', include('emailer.foo.urls')),
