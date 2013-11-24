@@ -24,82 +24,103 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/css/caroussel.css" rel="stylesheet">
-  <style id="holderjs-style" type="text/css"></style></head>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <style id="holderjs-style" type="text/css"></style></head>
 <!-- NAVBAR
 ================================================== -->
   <body style="">
-    <div class="container">
-  	     <h2>Describe the blood you are looking for: </h2> 
-            <div class="col-sm-4 col-md-4">
-            <p>
-              What kind of blood are you looking for?
-              <div class="btn-group" style="margin: 9px 0 5px;">
-                <button type="button" class="btn btn-default">A</button>
-                <button type="button" class="btn btn-default">B</button>
-                <button type="button" class="btn btn-default">AB</button>
-                <button type="button" class="btn btn-default">O</button>
-              </div>
-            </p>
-            <p>
-              Which blood rhesus is it?
-              <div class="btn-group" style="margin: 9px 0 5px;">
-                <button type="button" class="btn btn-default">+</button>
-                <button type="button" class="btn btn-default">-</button>
-              </div>
-            </p>
-            <p>
-                In which city and country will the blood be transfered ?
-              <p>
-                <div class="input-group input-group">
-                  <span class="input-group-addon">City</span>
-                  <input type="text" class="form-control" placeholder="City">
-                </div>
-              </p>
-              <p>
-                <div class="input-group input-group">
-                  <span class="input-group-addon">Country</span>
-                  <input type="text" class="form-control" placeholder="Country">
-                </div>   
-              </p> 
-              <p>
-                Where should the potential donors call? 
-                <div class="input-group input-group">
-                <span class="input-group-addon">Tel.</span>
-                <input type="text" class="form-control" placeholder="Tel">
-                </div>
-              </p>
-              <p>
-                Who will be the receiver?
-                <div class="btn-group" style="margin: 9px 0 5px;">
-                  <button type="button" class="btn btn-default">Friend</button>
-                  <button type="button" class="btn btn-default">Familly</button>
-                  <button type="button" class="btn btn-default">Other</button>
-                </div>
-              </p>
-              <p>
+      <div class="container">
+	  <form id="mainform">
+	      {% csrf_token %}
+  	      <h2>Describe the blood you are looking for: </h2> 
+              <div class="col-sm-4 col-md-4">
+		  <p>
+		      What kind of blood are you looking for?
+		      <div class="btn-group" data-toggle="buttons" style="margin: 9px 0 5px;">
+			  <label class="btn btn-primary">
+			      <input type="radio" name="options" id="a" value="a">A
+			  </label>
+			  <label class="btn btn-primary">
+			      <input type="radio" name="options" id="b" value="b" >B
+			  </label>
+			  <label class="btn btn-primary">
+			      <input type="radio" name="options" id="ab" value="ab" >AB
+			  </label>
+			  <label class="btn btn-primary">
+			      <input type="radio" name="options" id="o" value="o">O
+			  </label>
+		      </div>
+		  </p>
+		  <p>
+		      Which blood rhesus is it?
+		      <div class="btn-group" data-toggle="buttons"  style="margin: 9px 0 5px;">
+			  <label class="btn btn-primary">
+			      <input type="radio" name="part" id="m" value="-">-
+			  </label>
+			  <label class="btn btn-primary">
+			      <input type="radio" name="part" id="p" value="+">+
+			  </label>
+		      </div>
+		  </p>
+		  <p>
+                      In which city and country will the blood be transfered ?
+		  <p>
+                      <div class="input-group input-group">
+			  <span class="input-group-addon">City</span>
+			  <input type="text" class="form-control" name="city" placeholder="City">
+                      </div>
+		  </p>
+		  <p>
+                      <div class="input-group input-group">
+			  <span class="input-group-addon">Country</span>
+			  <input type="text" class="form-control" name="country" placeholder="Country">
+                      </div>   
+		  </p> 
+		  <p>
+                      Where should the potential donors call? 
+                      <div class="input-group input-group">
+			  <span class="input-group-addon">Tel.</span>
+			  <input type="text" class="form-control" name="tel" placeholder="Tel">
+                      </div>
+		  </p>
+		  <p>
+                      Who will be the receiver?
+                      <div class="btn-group" data-toggle="buttons" style="margin: 9px 0 5px;">
+			   <label class="btn btn-primary">
+			      <input type="radio" name="rel" id="friends" value="friend">Friend
+			  </label>
+			  <label class="btn btn-primary">
+			      <input type="radio" name="rel" id="family" value="family member">Family
+			  </label>
+			  <label class="btn btn-primary">
+			      <input type="radio" name="rel" id="other" value="friend">Other
+			  </label>
+                      </div>
+		  </p>
+		  <p>
               </br>
-                <button type="submit" id="Facebook" class="btn btn btn-primary">
+              <button type="submit" id="generate" class="btn btn btn-primary">
                   Generate message
-                </button>
-              </p> 
-            </p>     
-          </div>
-          
+              </button>
+              </div>
+          </form>    
     </div>
     <div class="container">
       <div class="col-sm-12 col-md-12 ">
         <h2>Here is the message we are gonna spread:</h2>
-        <div class="alert alert-success">
-          URGENT! A Friend needs #blood in #Mumbai, #India. Matching #donors: O-, O+, A-, A+. Call +91 (22) 6615 3330. 
-          <a href="http://bit.ly/1bezcE0">http://bit.ly/1bezcE0</a>
+        <div class="alert alert-success" id="message">
+          
         </div>
         
           </br>
-                <button type="submit" id="Facebook" class="btn btn btn-primary">
+                <button id="send" class="btn btn btn-primary">
                   SEND! >>
                 </button>
       </div>
     </div>
-                
+    <script src="https://apis.google.com/js/client.js"></script>      
+    <script src="/static/js/product.js"> </script>
 </body>
 </html>
