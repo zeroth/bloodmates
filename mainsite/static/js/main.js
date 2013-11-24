@@ -82,11 +82,12 @@ function show_friends(){
 			$.ajax({
 			    url:"/emails/",
 			    type:"POST",
-			    data:to_send,
+			    data:JSON.stringify(to_send),
 			    contentType:"application/json; charset=utf-8",
 			    dataType:"json",
-			    success: function(r){
-				alert(r);
+			    success: function(d, s, j){
+				console.log(d);
+				console.log(s);
 			    }
 			});
 		    }

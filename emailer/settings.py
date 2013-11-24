@@ -61,7 +61,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/home/abhishekworld/webapps/bloodmates_static/'
+STATIC_ROOT = '' #'/home/abhishekworld/webapps/bloodmates_static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -73,13 +73,13 @@ STATIC_URL = '/static/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = "smtp.mandrillapp.com" #environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST = "in.mailjet.com" #environ.get('EMAIL_HOST', 'smtp.gmail.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = "bs19ucSc1KCpADbDLB_ODw" #environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_PASSWORD = "8ed84ec45f336b1438c70b2f8601d3c2" #environ.get('EMAIL_HOST_PASSWORD', '')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-EMAIL_HOST_USER = "abhishekworld@gmail.com"  #environ.get('EMAIL_HOST_USER', 'your_email@example.com')
+EMAIL_HOST_USER = "0454e7d000b00cab180c80fbeac57cc5"  #environ.get('EMAIL_HOST_USER', 'your_email@example.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = 587 #environ.get('EMAIL_PORT', 587)

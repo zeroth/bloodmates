@@ -1,10 +1,10 @@
+from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import urllib2 as urllib
 
-_from = "contact@nuvenote.com"
 def url_data_to_dic(urldata):
     plain_txt = urllib.unquote(urldata)
     plain_list = plain_txt.split("&")
@@ -44,10 +44,18 @@ def email(request):
         #return HttpResponse(data)
         data = json.loads(request.body)
         _to = data['to']
-        return HttpResponse(_to)
-        _from = request.POST.get('from')
-        _from = _from+"@facebook.com"
-        _message = request.POST.get('message')
-        send_mail("Help your friend", _message, _from, _to)
+        #return HttpResponse(_to)
+        #_from = data['from']
+        _from = "lookingforblood@bloodmates.co"
+        _message = data['message']
+        print _to
+        print _from
+        print _message
+        #send_mail("Help your friend", _message, _from, _to, fail_silently=False)
+        _header = {"X-MC-Track":"opens"}
+        email = EmailMultiAlternatives(subject="Help", headers=_header, body=_message,from_email=_from, to=_to)
+        email.attach_alternative(_message, "text/html")
+        email.send()
+
         return HttpResponse()
     return HttpResponse("Hi! Please go to <a href='http://bloodmates.co'>http://bloodmates.co</a>")
