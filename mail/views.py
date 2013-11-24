@@ -48,11 +48,10 @@ def email(request):
         #_from = data['from']
         _from = "lookingforblood@bloodmates.co"
         _message = data['message']
-        print _to
-        print _from
-        print _message
+        #print _to
+        #print _from
+        #print _message
         #send_mail("Help your friend", _message, _from, _to, fail_silently=False)
-        _header = {"X-MC-Track":"opens"}
         email = EmailMultiAlternatives(subject="Help", headers=_header, body=_message,from_email=_from, to=_to)
         email.attach_alternative(_message, "text/html")
         email.send()
